@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #app-sm,#app,#app-big {
+        display: block;
+        background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app-sm" style="width:375px;height:375px;"></div>
+    <div id="app" style="width:475px;height:475px;"></div>
+    <div id="app-big" style="width:575px;height:575px;"></div>
+    <script src="lib/canvas-credit-score.umd.js"></script>
+    <script>
+      var test = new CreditScore('app-sm');
+      test.drawBaseMap();
+      var test2 = new CreditScore('app',{
+        scoreTarget:600,
+        style:{
+          line:{
+            activeColor:'#f00',
+          },
+          dashLine:{
+            width:2,
+            activeColor:'#3de'
+          },
+          outerText:{
+            color:'#56d',
+            fontSize:20
+          }
+        }
+      });
+      test2.drawBaseMap();
+      var test3 = new CreditScore('app-big');
+      test3.init({
+        scoreMin:200,
+        scoreMax:2450,
+        socreStart:800,
+        scoreTarget:1900,
+        segAngle:100,
+        outerTextSeg:10
+      })
+      test3.drawBaseMap();
+      // test3.refresh(1000,function(){
+      //   console.log('我被调用了')
+      // })
+
+    </script>
+  </body>
+</html>

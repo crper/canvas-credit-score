@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #app {
+        display: block;
+        margin: 0 auto;
+        background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
+      }
+
+      #test-action {
+        width: 200px;
+        height: 50px;
+        font-weight: 700;
+        background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        color: #333;
+        font-size: 16px;
+        line-height: 50px;
+        border-radius: 50px;
+        text-align: center;
+        cursor: pointer;
+        margin: 50px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="test-action">点击我看随机效果</div>
+    <div id="app" style="width:375px;height:375px;"></div>
+    <script src="dist/canvas-credit-score.umd.js"></script>
+    <script>
+      var test = new CreditScore('app');
+    </script>
+  </body>
+</html>
