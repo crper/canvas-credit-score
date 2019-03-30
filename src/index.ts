@@ -65,7 +65,6 @@ class CreditScore {
   public cacheParams: {};
 
   constructor(el: string, options: {} = {}) {
-    console.log('options: ', options);
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d') as any;
     this.ratio = window.devicePixelRatio; // 像素比
@@ -448,16 +447,14 @@ class CreditScore {
     let textArr: number[] = Array.from(
       new Array(this.options.outerTextSeg),
       (item, index): number =>
-        !item
-          ? this.options.outerTextSeg - 1 === index
-            ? this.options.scoreMax
-            : textGap * index + this.options.scoreMin
-          : 0
+        this.options.outerTextSeg - 1 === index
+          ? this.options.scoreMax
+          : textGap * index + this.options.scoreMin
     );
     let textStepAngel: number =
       this.getNumberRange('angel') / (textArr.length - 1);
-    let textAngelArr: number[] = textArr.map((item, index) =>
-      !item ? this.options.startAngle + textStepAngel * index : 0
+    let textAngelArr: number[] = textArr.map(
+      (item, index) => this.options.startAngle + textStepAngel * index
     );
     return {
       textArr,
