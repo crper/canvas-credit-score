@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/crper/canvas-credit-score/compare/v1.1.0...v1.1.1) (2019-08-06)
+
+
+### Features
+
+* **options:** 提供箭头的更换（base64） ([704faf3](https://github.com/crper/canvas-credit-score/commit/704faf3))
+
 ## 1.1.0 (2019-08-05)
 
 
