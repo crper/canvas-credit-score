@@ -35,6 +35,7 @@ interface StyleParams {
 }
 
 interface DefaultParams {
+  arrowImg: string; // 箭头 base64
   x: number; // 圆心的x坐标
   y: number; // 圆心的y坐标
   startAngle: number; // 开始的角度
@@ -64,7 +65,7 @@ class CreditScore {
 
   public cacheParams: {};
 
-  constructor(el: string, options: {} = {}) {
+  constructor(el: string, options = { arrowImg: '' }) {
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d') as any;
     this.ratio = window.devicePixelRatio; // 像素比
@@ -72,8 +73,13 @@ class CreditScore {
     this.isDrawComplete = false; // 画布是否渲染完毕
     this.el = document.getElementById(el);
     this.cacheParams = {};
-    this.pointImg.src =
-      'data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMjRweCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiAgZmlsbD0icmdiKDI1NSwgMjU1LCAyNTUpIiBkPSJNOC4wMDAsMjQuMDA1IEMzLjU4MiwyNC4wMDUgLTAuMDAwLDIwLjUyNSAtMC4wMDAsMTYuMjMwIEMtMC4wMDAsMTEuOTM2IDguMDAwLC0wLjAwNSA4LjAwMCwtMC4wMDUgQzguMDAwLC0wLjAwNSAxNS45OTksMTEuOTM2IDE1Ljk5OSwxNi4yMzAgQzE1Ljk5OSwyMC41MjUgMTIuNDE4LDI0LjAwNSA4LjAwMCwyNC4wMDUgWk04LjAwMCwxMi4wNjUgQzUuNjI1LDEyLjA2NSAzLjcwMCwxMy45MzQgMy43MDAsMTYuMjM5IEMzLjcwMCwxOC41NDQgNS42MjUsMjAuNDEzIDguMDAwLDIwLjQxMyBDMTAuMzc1LDIwLjQxMyAxMi4zMDAsMTguNTQ0IDEyLjMwMCwxNi4yMzkgQzEyLjMwMCwxMy45MzQgMTAuMzc1LDEyLjA2NSA4LjAwMCwxMi4wNjUgWiIvPjwvc3ZnPg==';
+    if (options && options.arrowImg) {
+      this.pointImg.src = options.arrowImg;
+    } else {
+      this.pointImg.src =
+        'data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMjRweCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiAgZmlsbD0icmdiKDI1NSwgMjU1LCAyNTUpIiBkPSJNOC4wMDAsMjQuMDA1IEMzLjU4MiwyNC4wMDUgLTAuMDAwLDIwLjUyNSAtMC4wMDAsMTYuMjMwIEMtMC4wMDAsMTEuOTM2IDguMDAwLC0wLjAwNSA4LjAwMCwtMC4wMDUgQzguMDAwLC0wLjAwNSAxNS45OTksMTEuOTM2IDE1Ljk5OSwxNi4yMzAgQzE1Ljk5OSwyMC41MjUgMTIuNDE4LDI0LjAwNSA4LjAwMCwyNC4wMDUgWk04LjAwMCwxMi4wNjUgQzUuNjI1LDEyLjA2NSAzLjcwMCwxMy45MzQgMy43MDAsMTYuMjM5IEMzLjcwMCwxOC41NDQgNS42MjUsMjAuNDEzIDguMDAwLDIwLjQxMyBDMTAuMzc1LDIwLjQxMyAxMi4zMDAsMTguNTQ0IDEyLjMwMCwxNi4yMzkgQzEyLjMwMCwxMy45MzQgMTAuMzc1LDEyLjA2NSA4LjAwMCwxMi4wNjUgWiIvPjwvc3ZnPg==';
+    }
+
     this.options = utils.mergeDeep(
       {
         x: 0,
