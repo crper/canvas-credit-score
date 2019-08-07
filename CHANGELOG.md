@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/crper/canvas-credit-score/compare/v1.2.1...v1.2.2) (2019-08-07)
+
+
+### Bug Fixes
+
+* **lib:** 修正对高清屏的支持 ([146403a](https://github.com/crper/canvas-credit-score/commit/146403a))
+
+
+### Features
+
+* **lib:** 改用姿势：采用画布缩放来提高清晰度 ([20e1e26](https://github.com/crper/canvas-credit-score/commit/20e1e26))
+
 ### [1.2.1](https://github.com/crper/canvas-credit-score/compare/v1.2.0...v1.2.1) (2019-08-07)
 
 ## [1.2.0](https://github.com/crper/canvas-credit-score/compare/v1.1.1...v1.2.0) (2019-08-07)
