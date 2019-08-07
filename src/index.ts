@@ -49,6 +49,7 @@ interface DefaultParams {
   segAngle: number; // 总角度分成几等分
   outerTextSeg: number; // 外围文本分成几份
   style: StyleParams; // 样式
+  scoreLevelText: string; // 信用等级文本
 }
 
 class CreditScore {
@@ -92,6 +93,7 @@ class CreditScore {
         scoreMin: 450, // 最低分
         scoreMax: 850, // 最高分
         scoreEvaDate: '评估日期：2019-04-01', // 评估日期
+        scoreLevelText: '', // 信用等级文字
         segAngle: 42, // 总角度分成几等分,
         outerTextSeg: 5, // 数字范围等分
         style: {
@@ -215,15 +217,27 @@ class CreditScore {
    */
   private drawCircleLine(
     { color = '#fff' }: { color: string },
-    { x = 0, y = 0, radius = 0 }: { x: number; y: number; radius: number }
+    {
+      x = 0,
+      y = 0,
+      radius = 0,
+      startAngle,
+      endAngle
+    }: {
+      x: number;
+      y: number;
+      radius: number;
+      startAngle?: number;
+      endAngle?: number;
+    }
   ): void {
     this.ctx.beginPath();
     this.ctx.arc(
       x,
       y,
       radius,
-      utils.getRadian(this.options.startAngle),
-      utils.getRadian(this.options.endAngle)
+      utils.getRadian(startAngle ? startAngle : this.options.startAngle),
+      utils.getRadian(endAngle ? endAngle : this.options.endAngle)
     );
     this.ctx.strokeStyle = color;
     this.ctx.lineCap = 'round';
@@ -375,7 +389,19 @@ class CreditScore {
   // 画虚线圆弧
   private drawCircleDashLine(
     { color = '#ccc' }: { color: string },
-    { x, y, radius }: { x: number; y: number; radius: number }
+    {
+      x,
+      y,
+      radius,
+      startAngle,
+      endAngle
+    }: {
+      x: number;
+      y: number;
+      radius: number;
+      startAngle?: number;
+      endAngle?: number;
+    }
   ): void {
     this.ctx.beginPath();
     for (let i = 1; i <= this.options.segAngle; i++) {
@@ -386,8 +412,8 @@ class CreditScore {
         utils.getRadian(
           this.options.startAngle +
             this.stepAngleCalc(
-              this.options.endAngle,
-              this.options.startAngle,
+              endAngle ? endAngle : this.options.endAngle,
+              startAngle ? startAngle : this.options.startAngle,
               this.options.segAngle
             ) *
               i
@@ -513,7 +539,9 @@ class CreditScore {
     this.drawInnerText(
       this.options.x,
       this.options.y + 20,
-      this.getScoreLevelText(),
+      this.options.scoreLevelText
+        ? this.options.scoreLevelText
+        : this.getScoreLevelText(),
       this.options.style.innerText.level.fontSize,
       this.options.style.innerText.level.color
     );
@@ -526,14 +554,6 @@ class CreditScore {
       this.options.style.innerText.date.fontWeight
     );
 
-    // 移动小水滴
-    this.moveWaterDrop(
-      this.options.x,
-      this.options.y,
-      this.options.x * 0.6,
-      this.options.currentAngle
-    );
-
     // 覆盖实线
     this.drawCircleLine(
       {
@@ -542,7 +562,9 @@ class CreditScore {
       {
         x: this.options.x,
         y: this.options.y,
-        radius: this.options.x * 0.7
+        radius: this.options.x * 0.7,
+        startAngle: this.options.startAngle,
+        endAngle: this.options.currentAngle
       }
     );
 
@@ -554,9 +576,20 @@ class CreditScore {
       {
         x: this.options.x,
         y: this.options.y,
-        radius: this.options.x * 0.6666666
+        radius: this.options.x * 0.6666666,
+        startAngle: this.options.startAngle,
+        endAngle: this.options.currentAngle
       }
     );
+
+    // 移动小水滴
+    this.moveWaterDrop(
+      this.options.x,
+      this.options.y,
+      this.options.x * 0.6,
+      this.options.currentAngle
+    );
+
     // 范围内无限render
     if (this.options.scoreStart < this.options.scoreTarget) {
       let stepMoveAngle = this.stepAngleCalc(
@@ -585,9 +618,11 @@ class CreditScore {
 
       if (this.options.currentAngle >= stepAngle) {
         this.isDrawComplete = true;
+        this.ctx.save();
         return false;
+      } else {
+        window.requestAnimationFrame(this.drawBaseMap.bind(this));
       }
-      window.requestAnimationFrame(this.drawBaseMap.bind(this));
     }
   }
 
