@@ -138,14 +138,15 @@ class CreditScore {
   // 构建元素并添加到指定区域
   private initElm(): void {
     if (this.el) {
-      this.ctx.scale(1 / this.ratio, 1 / this.ratio);
+      this.ctx.scale(this.ratio, this.ratio);
       this.el.appendChild(this.canvas);
       const { height, width } = this.el.getBoundingClientRect();
+      console.log('height, width: ', height, width);
       this.canvasSize(width, height);
       this.options = {
         ...this.options,
-        x: height / 2,
-        y: width / 2
+        x: (height * this.ratio) / 2,
+        y: (width * this.ratio) / 2
       };
       this.fixRangeValue(this.options);
       // 缓存实例初始化的参数
@@ -177,8 +178,8 @@ class CreditScore {
 
   // 画布大小
   protected canvasSize(width: number = 375, height: number = 375): void {
-    this.canvas.width = width;
-    this.canvas.height = height;
+    this.canvas.width = width * this.ratio;
+    this.canvas.height = height * this.ratio;
     this.canvas.style.width = `${width}px`;
     this.canvas.style.height = `${height}px`;
   }
@@ -265,10 +266,14 @@ class CreditScore {
   ): void {
     this.ctx.beginPath();
     this.ctx.fillStyle = color;
-    this.ctx.font = `${fontWeight} ${fontSize}px Microsoft yahei`;
+    this.ctx.font = `${fontWeight} ${fontSize * this.ratio}px Microsoft yahei`;
     this.ctx.textBaseline = 'ideographic';
     this.ctx.textAlign = 'left';
-    this.ctx.fillText(text, x - this.ctx.measureText(text).width / 2, y);
+    this.ctx.fillText(
+      text,
+      x - (this.ctx.measureText(text).width * this.ratio) / 2,
+      y
+    );
   }
 
   // 画外围文本线
@@ -340,7 +345,7 @@ class CreditScore {
   ): void {
     this.ctx.save();
     this.ctx.fillStyle = color;
-    this.ctx.font = `${fontWeight} ${fontSize}px Microsoft yahei`;
+    this.ctx.font = `${fontWeight} ${fontSize * this.ratio}px Microsoft yahei`;
     this.ctx.textAlign = 'center';
     this.ctx.fillText(`${text}`, x, y);
     this.ctx.textBaseline = 'ideographic';
@@ -538,7 +543,7 @@ class CreditScore {
     );
     this.drawInnerText(
       this.options.x,
-      this.options.y + 20,
+      this.options.y + 20 * this.ratio,
       this.options.scoreLevelText
         ? this.options.scoreLevelText
         : this.getScoreLevelText(),
@@ -547,7 +552,7 @@ class CreditScore {
     );
     this.drawInnerText(
       this.options.x,
-      this.options.y + 40,
+      this.options.y + 40 * this.ratio,
       this.options.scoreEvaDate,
       this.options.style.innerText.date.fontSize,
       this.options.style.innerText.date.color,
