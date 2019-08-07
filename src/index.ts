@@ -138,15 +138,14 @@ class CreditScore {
   // 构建元素并添加到指定区域
   private initElm(): void {
     if (this.el) {
-      this.ctx.scale(this.ratio, this.ratio);
       this.el.appendChild(this.canvas);
       const { height, width } = this.el.getBoundingClientRect();
       console.log('height, width: ', height, width);
       this.canvasSize(width, height);
       this.options = {
         ...this.options,
-        x: (height * this.ratio) / 2,
-        y: (width * this.ratio) / 2
+        x: height / 2,
+        y: width / 2
       };
       this.fixRangeValue(this.options);
       // 缓存实例初始化的参数
@@ -182,6 +181,7 @@ class CreditScore {
     this.canvas.height = height * this.ratio;
     this.canvas.style.width = `${width}px`;
     this.canvas.style.height = `${height}px`;
+    this.ctx.scale(this.ratio, this.ratio);
   }
 
   /**
@@ -242,7 +242,7 @@ class CreditScore {
     );
     this.ctx.strokeStyle = color;
     this.ctx.lineCap = 'round';
-    this.ctx.lineWidth = 1 * this.ratio;
+    this.ctx.lineWidth = 1;
     this.ctx.stroke();
   }
 
@@ -266,14 +266,10 @@ class CreditScore {
   ): void {
     this.ctx.beginPath();
     this.ctx.fillStyle = color;
-    this.ctx.font = `${fontWeight} ${fontSize * this.ratio}px Microsoft yahei`;
+    this.ctx.font = `${fontWeight} ${fontSize}px Microsoft yahei`;
     this.ctx.textBaseline = 'ideographic';
     this.ctx.textAlign = 'left';
-    this.ctx.fillText(
-      text,
-      x - (this.ctx.measureText(text).width * this.ratio) / 2,
-      y
-    );
+    this.ctx.fillText(text, x - this.ctx.measureText(text).width / 2, y);
   }
 
   // 画外围文本线
@@ -345,7 +341,7 @@ class CreditScore {
   ): void {
     this.ctx.save();
     this.ctx.fillStyle = color;
-    this.ctx.font = `${fontWeight} ${fontSize * this.ratio}px Microsoft yahei`;
+    this.ctx.font = `${fontWeight} ${fontSize}px Microsoft yahei`;
     this.ctx.textAlign = 'center';
     this.ctx.fillText(`${text}`, x, y);
     this.ctx.textBaseline = 'ideographic';
@@ -424,7 +420,7 @@ class CreditScore {
               i
         )
       );
-      this.drawCircle(x1, y1, 1 * this.ratio, color);
+      this.drawCircle(x1, y1, 1, color);
     }
   }
 
@@ -543,7 +539,7 @@ class CreditScore {
     );
     this.drawInnerText(
       this.options.x,
-      this.options.y + 20 * this.ratio,
+      this.options.y + 20,
       this.options.scoreLevelText
         ? this.options.scoreLevelText
         : this.getScoreLevelText(),
@@ -552,7 +548,7 @@ class CreditScore {
     );
     this.drawInnerText(
       this.options.x,
-      this.options.y + 40 * this.ratio,
+      this.options.y + 40,
       this.options.scoreEvaDate,
       this.options.style.innerText.date.fontSize,
       this.options.style.innerText.date.color,
