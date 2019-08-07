@@ -1,6 +1,6 @@
 {
   "name": "canvas-credit-score",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Canvas实现类似支付宝的信用评分",
   "main": "dist/lib/canvas-credit-score.cjs.js",
   "module": "dist/lib/canvas-credit-score.esm.js",
