@@ -1,5 +1,5 @@
 /*!
- * canvas-credit-score.js v1.2.1
+ * canvas-credit-score.js v1.2.2
  * (c) 2019-2019 crper(crper@outlook.com)
  * Released under the MIT License.
  */

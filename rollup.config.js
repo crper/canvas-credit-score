@@ -3,7 +3,6 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import del from 'rollup-plugin-delete';
 import { eslint } from 'rollup-plugin-eslint';
-import livereload from 'rollup-plugin-livereload';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 import serve from 'rollup-plugin-serve';
@@ -107,11 +106,6 @@ if (isDev) {
     serve({
       open: true,
       contentBase: 'dist'
-    }),
-    livereload({
-      watch: ['dist'],
-      exts: ['html', 'js', 'css'],
-      verbose: true // Disable console output
     })
   );
 }
