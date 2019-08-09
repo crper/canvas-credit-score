@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/crper/canvas-credit-score/compare/v1.2.2...v1.2.3) (2019-08-09)
+
+
+### Bug Fixes
+
+* **lib:** 移除打包好的库添加了 liveload 引用 ([1785391](https://github.com/crper/canvas-credit-score/commit/1785391))
+
 ### [1.2.2](https://github.com/crper/canvas-credit-score/compare/v1.2.1...v1.2.2) (2019-08-07)
 
 
