@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/crper/canvas-credit-score/compare/v1.2.3...v1.2.4) (2019-08-14)
+
+
+### Bug Fixes
+
+* **lib:** 起步分和目标分相差小于5的时侯，渲染文本为目标分 ([8208c49](https://github.com/crper/canvas-credit-score/commit/8208c49))
+
 ### [1.2.3](https://github.com/crper/canvas-credit-score/compare/v1.2.2...v1.2.3) (2019-08-09)
 
 
