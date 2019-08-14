@@ -532,14 +532,16 @@ class CreditScore {
     // 文字位置()
     this.drawInnerText(
       this.options.x,
-      this.options.y - 10,
-      this.options.scoreStart,
+      this.options.y - 20,
+      this.options.scoreTarget - this.options.scoreStart < 5
+        ? this.options.scoreTarget
+        : this.options.scoreStart,
       this.options.style.innerText.score.fontSize,
       this.options.style.innerText.score.color
     );
     this.drawInnerText(
       this.options.x,
-      this.options.y + 20,
+      this.options.y + 5,
       this.options.scoreLevelText
         ? this.options.scoreLevelText
         : this.getScoreLevelText(),
@@ -548,7 +550,7 @@ class CreditScore {
     );
     this.drawInnerText(
       this.options.x,
-      this.options.y + 40,
+      this.options.y + 25,
       this.options.scoreEvaDate,
       this.options.style.innerText.date.fontSize,
       this.options.style.innerText.date.color,
